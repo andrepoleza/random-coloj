@@ -1,4 +1,5 @@
 # random-coloj
+[![Build Status](https://travis-ci.org/andrepoleza/random-coloj.svg?branch=master)](https://travis-ci.org/andrepoleza/random-coloj)
 
 A Clojure library designed to ... well, that part is up to you.
 
