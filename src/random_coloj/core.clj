@@ -1,5 +1,14 @@
 (ns random-coloj.core)
 
+(defn get-hue-range [color-input color-bounds]
+  (cond
+    (number? color-input) (if (and
+                                (> 360 color-input)
+                                (< 0 color-input))
+                            [color-input color-input])
+    (string? color-input) (:hue-range (first (filter #(= (:name %) color-input) color-bounds)))
+    :else [0 360]))
+
 (defn define-color
   ([name hue-range lower-bounds]
    (define-color name hue-range lower-bounds '()))
