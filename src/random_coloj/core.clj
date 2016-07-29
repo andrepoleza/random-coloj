@@ -93,3 +93,15 @@
       (if (< hue 0)
         (+ 360 hue)
         hue))))
+
+(defn pick-saturation [hue options color-bounds]
+  (if (= (:hue options) :monochrome)
+    0
+    (let [saturation-range (:saturation-range (first (filter #(= (:name %) hue) color-bounds)))
+          s-min (first saturation-range)
+          s-max (second saturation-range)]
+      (condp = (:luminosity options)
+        :bright (random-within 55 s-max)
+        :dark (random-within (- s-min 10) s-max)
+        :light (random-within s-min 55)
+        :random (random-within 0 100)))))

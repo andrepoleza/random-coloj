@@ -119,3 +119,14 @@
   (is (integer? (pick-hue {:hue "blue"})))
   (is (integer? (pick-hue {:hue "purple"})))
   (is (integer? (pick-hue {:hue "pink"}))))
+
+(deftest pick-saturation-test
+  (is (= 0 (pick-saturation "monochrome" {:hue :monochrome} '())))
+  (let [s (pick-saturation "monochrome" {:luminosity :random} '())]
+    (is (and (< 0 s) (> 100 s))))
+  (let [s (pick-saturation "red" {:luminosity :bright} color-bounds)]
+    (is (and (< 55 s) (> 100 s))))
+  (let [s (pick-saturation "red" {:luminosity :dark} color-bounds)]
+    (is (and (< 10 s) (> 100 s))))
+  (let [s (pick-saturation "red" {:luminosity :light} color-bounds)]
+    (is (and (< 20 s) (> 55 s)))))
