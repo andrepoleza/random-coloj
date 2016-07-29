@@ -84,11 +84,12 @@
      (string? color-input) (:hue-range (first (filter #(= (:name %) color-input) color-bounds)))
      :else [0 360])))
 
+(defn- random-within [start end]
+  (+ (rand-int (- end start)) start))
+
 (defn pick-hue [options]
   (if-let [hue-range (get-hue-range (:hue options))]
-    (let [fst (first hue-range)
-          snd (second hue-range)
-          hue (+ (rand-int (- snd fst)) fst)]
+    (let [hue (random-within (first hue-range) (second hue-range))]
       (if (< hue 0)
         (+ 360 hue)
         hue))))
